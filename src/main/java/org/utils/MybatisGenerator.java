@@ -13,7 +13,7 @@ public class MybatisGenerator {
 	public static void main(String[] args) throws Exception {
 		List warnings = new ArrayList();
 		boolean overwrite = true;
-		File configFile = new File("D:/xinwo_workspace/workspace/box/properties/mybatis-generator.xml");
+		File configFile = new File(args[0]);
 		ConfigurationParser cp = new ConfigurationParser(warnings);
 		Configuration config = cp.parseConfiguration(configFile);
 		DefaultShellCallback callback = new DefaultShellCallback(overwrite);
