@@ -76,7 +76,48 @@ public class FileUtil {
 		}
 		return file.createNewFile();
 	}
+	
+	public static byte[] readFile(String path) throws IOException{
+		File file = new File(path);
+		return readFile(file);
+	}
+	
+	public static byte[] readFile(File file) throws IOException{
+		byte[] buff = null;
+		if(file.exists()){
+			FileInputStream fis = null;
+			try {
+				fis = new FileInputStream(file);
+				buff = new byte[fis.available()];
+				fis.read(buff);
+			} catch (Exception e) {
+				throw new IOException(e);
+			}finally {
+				if(fis!=null){
+					fis.close();
+				}
+			}
+		}
+		return buff;
+	}
+	
+	public static void writeFile(String path,byte[] content) throws IOException{
+		writeFile(new File(path), content);
+	}
 
+	public static void writeFile(File file,byte[] content) throws IOException{
+		createFile(file);
+		FileOutputStream fos = new FileOutputStream(file);
+		try {
+			fos.write(content, 0, content.length);
+		} catch (Exception e) {
+			throw new IOException(e);
+		}finally {
+			fos.close();
+		}
+		
+	}
+	
 	public static void testIO() throws IOException {
 		long start = System.currentTimeMillis();
 		File file = new File("F:/XinwoEngineerMode.apk");
