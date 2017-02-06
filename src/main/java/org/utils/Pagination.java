@@ -38,48 +38,54 @@ public class Pagination implements Serializable {
 		return rowStart;
 	}
 
-	public void setRowStart(int rowStart) {
+	public Pagination setRowStart(int rowStart) {
 		this.rowStart = rowStart;
+		return this;
 	}
 
 	public int getPageSize() {
 		return pageSize;
 	}
 
-	public void setPageSize(int pageSize) {
+	public Pagination setPageSize(int pageSize) {
 		this.pageSize = pageSize;
+		return this;
 	}
 
 	public int getRowTotal() {
 		return rowTotal;
 	}
 
-	public void setRowTotal(int rowTotal) {
+	public Pagination setRowTotal(int rowTotal) {
 		this.rowTotal = rowTotal;
+		return this;
 	}
 
 	public String getSortName() {
 		return sortName;
 	}
 
-	public void setSortName(String sortName) {
+	public Pagination setSortName(String sortName) {
 		this.sortName = sortName;
+		return this;
 	}
 
 	public String getSortOrder() {
 		return sortOrder;
 	}
 
-	public void setSortOrder(String sortOrder) {
+	public Pagination setSortOrder(String sortOrder) {
 		this.sortOrder = sortOrder;
+		return this;
 	}
 
 	public String getSortSql() {
 		return sortSql;
 	}
 
-	public void setSortSql(String sortSql) {
+	public Pagination setSortSql(String sortSql) {
 		this.sortSql = sortSql;
+		return this;
 	}
 
 	public String print() {
