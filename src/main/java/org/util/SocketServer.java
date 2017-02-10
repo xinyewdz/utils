@@ -1,4 +1,4 @@
-package org.utils;
+package org.util;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
