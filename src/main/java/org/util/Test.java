@@ -25,9 +25,39 @@ public class Test {
 		// test3();
 		//test4();
 		//test5();
-		testFile();
+		//testFile();
+		threadTest();
 	}
 	
+	private static void threadTest() throws InterruptedException {
+		Thread t1 = new Thread(()->{
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("thread sleep 2 second,finish");
+		});
+		t1.start();
+		t1.wait();
+		Thread t2 = new Thread(()->{
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("thread sleep 3 second,finish");
+		});
+		t2.start();
+		t2.join();
+		System.out.println("run main thread...");
+		
+		
+		
+	}
+
 	private static void testFile() throws IOException, InterruptedException {
 		FileInputStream fis = new FileInputStream("f:\\os\\ubuntu-16.04-desktop-amd64.iso");
 		byte[] buff = new byte[1024000];
@@ -40,6 +70,7 @@ public class Test {
 		}
 		fis.close();
 		fos.close();
+		
 	}
 
 	private static void test5() {

@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.gson.Gson;
-
 /**
  * TODO
  * 
@@ -18,9 +16,11 @@ public class Pagination implements Serializable {
 	public static final String SORT_ORDER_DESC = "desc";
 
 	// 数据库下标从0开始，web从1开始
-	private int rowStart = -1;
+	private int startRow = -1;
 	private int pageSize = 10;
-	private int rowTotal = 0;
+	private long totalRow = 0;
+	private int currentPage = 1;
+	private int totalPage = 0;
 	private String sortName = null;
 
 	private String sortOrder = SORT_ORDER_ASC;
@@ -29,17 +29,17 @@ public class Pagination implements Serializable {
 	public Pagination() {
 	}
 
-	public Pagination(int rowStart, int pageSize) {
-		this.rowStart = rowStart;
+	public Pagination(int startRow, int pageSize) {
+		this.startRow = startRow;
 		this.pageSize = pageSize;
 	}
 
-	public int getRowStart() {
-		return rowStart;
+	public int getStartRow() {
+		return startRow;
 	}
 
-	public Pagination setRowStart(int rowStart) {
-		this.rowStart = rowStart;
+	public Pagination setRowStart(int startRow) {
+		this.startRow = startRow;
 		return this;
 	}
 
@@ -52,12 +52,18 @@ public class Pagination implements Serializable {
 		return this;
 	}
 
-	public int getRowTotal() {
-		return rowTotal;
+	public long getTotalRow() {
+		return totalRow;
 	}
 
-	public Pagination setRowTotal(int rowTotal) {
-		this.rowTotal = rowTotal;
+	public Pagination setTotalRow(long totalRow) {
+		this.totalRow = totalRow;
+		this.totalPage = (int) (totalRow/pageSize);
+		if(totalRow%pageSize>0){
+			totalPage++;
+		}
+		this.currentPage = startRow/pageSize;
+		this.currentPage++;
 		return this;
 	}
 
@@ -87,16 +93,23 @@ public class Pagination implements Serializable {
 		this.sortSql = sortSql;
 		return this;
 	}
+	
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public int getTotalPage() {
+		return totalPage;
+	}
 
 	public String print() {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("_rowStart", this.rowStart);
+		map.put("_startRow", this.startRow);
 		map.put("_pageSize", this.pageSize);
-		map.put("_rowTotal", this.rowTotal);
+		map.put("_totalRow", this.totalRow);
 		map.put("_sortName", this.sortName);
 		map.put("_sortOrder", this.sortOrder);
-		Gson gson = new Gson();
-		return gson.toJson(map);
+		return map.toString();
 	}
 
 	@Override
